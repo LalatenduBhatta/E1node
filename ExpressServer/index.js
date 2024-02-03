@@ -20,7 +20,7 @@ app.get("/about", (req, res) => {
 //post
 app.post("/user", (req, res) => {
     console.log(req.body);
-    res.send("HEY")
+    res.send("HELLO")
 })
 
 
