@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            JS_RIDERS
+        </div>
+        <div class="links">
+            <a href="../index.html">Home</a>
+            <a href="./about.html">About</a>
+            <a href="">Contact</a>
+            <a href="./signup">Signup</a>
+        </div>
+    </nav>
+    <h1>IT IS Contact PAGE</h1>
+
+    <div>
+        <form id="form">
+            <div>
+                <label for="">NAME:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div>
+                <label for="">EMAIl:</label>
+                <input type="text" name="email" required>
+            </div>
+            <div>
+                <label for="">REVIEW:</label>
+                <textarea name="review" id="" cols="20" rows="5" required></textarea>
+            </div>
+            <div>
+                <button>SUBMIT</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        let form = document.getElementById("form")
+        let userReview = {}
+        form.addEventListener("input", (event) => {
+            let value = event.target.value
+            let name = event.target.name
+            userReview[name] = value
+        })
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let res = fetch("/student", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(userReview)
+            }).then((data) => data.json())
+                .then(data => alert(`${userReview.name} your reveiw Posted With ${data.characters} 
+                                    letters and ${data.words} words`))
+            form.reset()
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="signupcss">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            JS_RIDERS
+        </div>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="">Contact</a>
+            <a href="/signup">Signup</a>
+        </div>
+    </nav>
+    <div class="signup">
+        <h1>signup</h1>
+        <form id="form">
+            <div class="name">
+                <label for="text">Name</label>
+                <input type="text" placeholder="Enter  your Name" name="name">
+            </div>
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Enter  your Email" name="email">
+            </div>
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter  New Password" name="pass">
+            </div>
+            <div class="rePassword">
+                <label for="password">Re-Enter Password</label>
+                <input type="password" placeholder="Conform Password" name="conPass">
+            </div>
+            <div class="btn">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let FORM = document.getElementById("form")
+
+        let usreDetails = {}
+
+        FORM.addEventListener("input", (event) => {
+            let value = event.target.value
+            let name = event.target.name
+            usreDetails[name] = value
+            // console.log(usreDetails);
+        })
+        FORM.addEventListener("submit", async (event) => {
+            event.preventDefault()
+            if (usreDetails.pass && usreDetails.pass === usreDetails.conPass) {
+                let res = await fetch("/newuser", {
+                    method: "POST",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify(usreDetails)
+                })
+                let result = await res.json()
+                console.log(result);
+            }
+            else {
+                alert("!!!!!!!PASSWORDS ARE NOT MATCHING.....TRY AGAIN")
+            }
+        })
+    </script>
+</body>
+
+</html>
